@@ -1,0 +1,408 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 文件名：卟学墨环与中微子手性_函子推导_v11.tex
+% 编译：xelatex
+% 编码：UTF-8
+% 定位：卟学框架内的形式化表述——函子推导，非标准物理论文
+% v11：定义1.1开头补公理 I 声明（点胚内部 0=1），
+%      结论第2条锚点自足；其余逐字保留 v10
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{ctexart}
+
+\usepackage{amsmath,amssymb,amsthm,mathrsfs}
+\usepackage{geometry}
+\geometry{a4paper,margin=2.5cm}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{thm}{定理}[section]
+\newtheorem{prop}[thm]{命题}
+\newtheorem{cor}[thm]{推论}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{定义}
+\newtheorem{rem}[thm]{注记}
+
+\newcommand{\Cat}{\mathbf}
+
+\begin{document}
+
+\title{墨环单向性与中微子左旋的函子对应\\
+{\large ——卟学形式化接口 v11：复指数延拓}}
+\author{作者}
+\date{2026年10月14日}
+\maketitle
+
+\begin{abstract}
+本文在 v8 手性函子推导的基础上，将源范畴的点胚从实数指数 $0^{p/q}$
+升级为复数指数 $0^{z}$（$z\in\mathbb{C}$）。核心结论：
+\textbf{实情形}（$z=p/q\in\mathbb{R}$）逐字继承 v8——中微子左旋是函子
+$F^{p/q}$ 的必然像，$q=2$ 回墨环，$q=3$ 给三代味结构；
+\textbf{复情形}（$z=a+ib$，$b\neq 0$）在同一函子框架下给出振荡相位与
+CP 破坏的结构接口。本文明确区分三个层次：已证（实情形）、结构已定
+（复情形）、接口开放（定量细节），为卟学框架的后续延拓保留入口。
+\end{abstract}
+
+\section{源范畴：复指数点胚}
+
+\begin{defn}[点胚 $0^z$]\label{def:pointseed}
+卟学两条原始公理提供本定义的基础：
+\textbf{公理 I}：点胚内部 $0=1$（内部同一性，非对称性来源）；
+\textbf{公理 II}：$1/0=\infty$（形式延拓基础）。
+
+以下 $0^z := e^{z\ln 0}$ 是\textbf{卟学框架内的形式延拓}，
+不要求经典复分析中的收敛性；$\ln 0 = -\infty$ 由公理 II
+提供，作为形式符号使用，不视为经典复分析定理。
+对 $z = a+ib$（$a,b\in\mathbb{R}$）按经典延拓分解：
+\[
+0^{a+ib} = 0^a\cdot 0^{ib},\qquad 0^{ib} = e^{-ib\infty}.
+\]
+$0^{ib}$ 在 $b\neq 0$ 时是一个形式相位符号，不作为经典复分析对象；
+其物理尺度由延拓接口 \S\ref{sec:extension} 给出。
+\end{defn}
+
+\begin{rem}[实部与虚部的地位]\label{rem:ab}
+$a$ 与 $b$ 是同一个复数 $z$ 的实部与虚部，二者地位平等，无主次之分。
+在函子框架中：
+\begin{itemize}
+\item 实部 $a$：给出 $q$ 分支结构（$a = p/q$ 有理时），经函子映为味结构；
+\item 虚部 $b$：给出相位因子 $e^{-ib\infty}$，经函子映为振荡相位。
+\end{itemize}
+两者的分工不是外加约定，而是复结构在函子下的两种读出。
+\end{rem}
+
+\begin{defn}[源范畴 $\Cat{Pu}_z$]\label{def:puz}
+对象：由复指数 $0^z$ 生成的几何结构。
+\begin{itemize}
+\item $D^z$：未扭复带（$z$ 决定分支数与相位结构，局部两面/全局两面）
+\item $M^z$：已扭复带（同上，局部两面/全局一面）
+\end{itemize}
+生成态射：
+\[
+t^z: D^z \to M^z
+\]
+（在每个分支上执行一次扭结，保持 $\mathbb{Z}_q$ 循环对称与相位结构）。
+恒等态射与复合规则与 v8 的 $\Cat{Pu}$ 一致。
+$\Cat{Pu}_z$ 是由对象 $\{D^z,M^z\}$ 与生成态射 $\{t^z\}$ 生成的自由范畴。
+\end{defn}
+
+\begin{rem}[$z\in\mathbb{R}$ 时回到 v8]\label{rem:backtov8}
+$z = p/q\in\mathbb{R}$（$b=0$）时：
+\begin{itemize}
+\item $q=2$：$0^{1/2}$ 的单值化是墨环，$\Cat{Pu}_{1/2} = \Cat{Pu}$（v8 源范畴）；
+\item $q=3$：$0^{1/3}$ 给出三分支结构，对应三代味；
+\item 一般 $q$：$0^{1/q}$ 给 $q$ 分支。
+\end{itemize}
+\end{rem}
+
+\begin{rem}[$z\in\mathbb{C}$ 时新增相位结构]\label{rem:complexcase}
+$z = a+ib$（$b\neq 0$）时：
+\begin{itemize}
+\item $a = p/q$ 给 $q$ 分支结构（与实情形相同）；
+\item $b$ 给相位 $e^{-ib\infty}$，在 $\Cat{Pu}_z$ 中表现为复带上的 $\mathrm{U}(1)$ 联络。
+\end{itemize}
+\end{rem}
+
+\section{靶范畴：费米子与弱作用}
+
+\begin{defn}[范畴 $\Cat{Ferm}$]\label{def:ferm}
+对象：费米子旋量结构。
+\begin{itemize}
+\item $\Psi$：弱作用顶点作用下的初始态，具有左右手性分量的费米子场
+（双态，局部双态/全局双态）
+\item $\Psi_L$：参与弱作用后的费米子场（仅左旋分量存活，单态，
+局部双态/全局单态）
+\end{itemize}
+态射：手性操作。
+\begin{itemize}
+\item $w: \Psi \to \Psi_L$：弱作用顶点（将双态费米子投影为单态手性费米子）
+\end{itemize}
+恒等态射与复合规则与 v8 一致。投影要求：
+\begin{enumerate}
+\item （幂等性）存在包含态射 $\iota: \Psi_L \hookrightarrow \Psi$ 使得
+$w\circ\iota = \mathrm{id}_{\Psi_L}$。
+\item （完全性）不动点集 $\mathrm{Fix}(w) = \Psi_L$，
+即 $\Psi\setminus\Psi_L$ 中没有不动点。
+\end{enumerate}
+\end{defn}
+
+\begin{rem}[物理对应]\label{rem:physical}
+$\Psi$ 对应标准模型中参与 $SU(2)_L$ 弱作用的费米子场在弱作用顶点
+作用下的初始态（如轻子二重态 $(\nu_L,e_L)$ 与右旋伴场 $e_R$ 共存的描述）。
+$\Psi_L$ 对应弱作用只耦合的左手征分量。
+$w$ 对应弱作用顶点处的手性投影。
+\end{rem}
+
+\begin{rem}[靶唯一性是定义而非定理]\label{rem:targetbydef}
+在 $\Cat{Ferm}$ 中，从 $\Psi$ 出发的非恒等态射按定义只有 $w$ 一个，
+故 $w$ 的靶 $\Psi_L$ 由定义直接给定。弱作用顶点只有一种
+（$SU(2)_L$ 手性投影）是最小标准模型的物理输入，不是 $\Cat{Ferm}$
+的数学推论。
+\end{rem}
+
+\begin{rem}[未走过扭结的费米子]\label{rem:untwisted}
+右旋电子 $e_R$ 不参与 $SU(2)_L$ 弱作用：它只携带 $U(1)_Y$ 超荷
+（$Y=-2$，本文采用 $Q = T_3 + Y/2$ 约定），通过电弱混合后对 $Z$
+玻色子有部分耦合，但不进入 $SU(2)_L$ 二重态。这对应 $\Cat{Pu}_z$
+中未经历扭结的复带 $D^z$。若引入 sterile $\nu_R$，同理——不参与
+弱作用，不经历手性投影。
+\end{rem}
+
+\section{函子}
+
+\begin{defn}[复函子 $F^z: \Cat{Pu}_z \to \Cat{Ferm}$]\label{def:functor}
+对象映射：
+\begin{align*}
+F^z(D^z) &= \Psi \\
+F^z(M^z) &= \Psi_L
+\end{align*}
+态射映射：
+\begin{align*}
+F^z(t^z) &= w \\
+F^z(\mathrm{id}_{D^z}) &= \mathrm{id}_\Psi \\
+F^z(\mathrm{id}_{M^z}) &= \mathrm{id}_{\Psi_L}
+\end{align*}
+复合保持与 v8 一致：$F^z(t^z\circ\mathrm{id}_{D^z}) =
+F^z(t^z)\circ F^z(\mathrm{id}_{D^z}) = w$。
+\end{defn}
+
+\begin{rem}[函子保持结构]\label{rem:preserve}
+$F^z$ 将 $t^z$ 的源对象 $D^z$（两面结构）映为 $\Psi$（双态结构），
+将靶对象 $M^z$（一面结构）映为 $\Psi_L$（单态结构）。
+$z\in\mathbb{R}$ 时与 v8 的 $F$ 完全一致。
+$z\in\mathbb{C}$ 时 $F^z$ 额外将复带的 $\mathrm{U}(1)$ 结构映为
+$\Psi_L$ 上的相位结构（见 \S\ref{sec:osc}）。
+\end{rem}
+
+\begin{rem}[$z=p/q$ 时逐字继承 v8]\label{rem:inherit}
+$z = p/q\in\mathbb{R}$ 时 $F^{p/q} = F$（v8 的函子），
+$q=2$ 回 v8 的墨环，$q=3$ 给三代味结构。
+\end{rem}
+
+\section{左旋方向的锁定}
+
+\begin{defn}[点胚分量与 $SU(2)_L$ 弱同位旋的对应]\label{def:su2}
+点胚的两分量（$0^{p/q}$ 在 $q=2$ 时的实情形）与 $SU(2)_L$ 二重态的
+弱同位旋第三分量 $T_3$ 对应如下：
+
+第一分量对应 $T_3 = +1/2$ 的态（$\nu_L$，由电荷公式 $Q = T_3 + Y/2$
+且 $Y=-1$ 得 $Q=0$）；
+第二分量对应 $T_3 = -1/2$ 的态（$e_L$，得 $Q=-1$）。
+
+轻子二重态基为 $\begin{pmatrix}\nu_L\\ e_L\end{pmatrix}$，
+上分量 $\nu_L$ 对应 $T_3=+1/2$，下分量 $e_L$ 对应 $T_3=-1/2$。
+
+（注：$\nu_L$ 位于二重态上分量并带 $T_3=+1/2$，是标准模型的约定；
+若换用相反排序，本定义的对应需同步翻转。）
+\end{defn}
+
+\begin{rem}[手性与同位旋的独立性]\label{rem:independence}
+定义~\ref{def:su2} 建立了点胚分量与 $T_3$ 的对应，但这是卟学点胚
+与 $SU(2)_L$ 二重态之间的\emph{对应约定}，而非从卟学内部推导出来的
+结论。卟学只给出点胚有两个分量；至于为什么第一分量对应 $T_3=+1/2$
+而非 $-1/2$，这是将一个二元对应选定为 $0\leftrightarrow +1/2$、
+$1\leftrightarrow -1/2$——换一种选定在卟学内部同样自洽。
+
+此外，$T_3$ 与手性（$P_L/P_R$）是两个独立的量子数。
+$SU(2)_L$ 的表示结构本身不区分左右手性——它只规定二重态的 $T_3$ 值。
+“轻子二重态的分量是左手征的”这一事实来自最小标准模型的实验输入。
+
+因此函子 $F^z$ 将扭结方向性映为 $P_L$ 的锁定机制是\emph{两层结构
+共同作用的}：
+\begin{enumerate}
+\item 对应约定层（卟学侧）：点胚分量与 $SU(2)_L$ 二重态 $T_3$ 的对应；
+\item 经验层（物理侧）：最小标准模型中弱作用只耦合左手征。
+\end{enumerate}
+两层结合，函子方向被确定。
+\end{rem}
+
+\section{手性定理（实情形）}
+
+\begin{thm}[给定最小标准模型结构下的函子必然性]\label{thm:main}
+设 $z = p/q\in\mathbb{R}$。在 $\Cat{Pu}_{p/q}$ 中，点胚 $0^{p/q}$ 的
+非对称性生成扭结态射 $t^{p/q}: D^{p/q}\to M^{p/q}$，
+这是自由生成范畴中从“两边”到“一边”的唯一生成态射。
+
+由函子 $F^{p/q}$（定义~\ref{def:functor}），$F^{p/q}(t^{p/q}) = w$
+是 $\Cat{Ferm}$ 中对应的“双态$\to$单态”态射，
+其靶按定义给定为 $\Psi_L$。
+
+由定义~\ref{def:su2} 和注记~\ref{rem:independence}，
+卟学---$SU(2)_L$ 对应约定与最小标准模型经验事实共同锁定方向为
+左旋投影 $P_L$。
+
+因此在给定函子 $F^{p/q}$ 与最小标准模型结构下，中微子左旋是
+墨环扭结结构通过函子强制传输到费米子范畴的必然结果。
+\end{thm}
+
+\begin{proof}
+与 v8 定理 6.1 的证明逐字一致：
+点胚 $0^{p/q}$ 的非对称性在自由范畴 $\Cat{Pu}_{p/q}$ 中生成唯一态射
+$t^{p/q}: D^{p/q}\to M^{p/q}$；
+函子 $F^{p/q}$ 保持此结构，$F^{p/q}(t^{p/q}) = w$ 将双态对象 $\Psi$
+映为单态对象 $\Psi_L$，靶由注记~\ref{rem:targetbydef} 按定义给定；
+方向性由两层锁定（定义~\ref{def:su2} 与注记~\ref{rem:independence}），
+确定 $w = P_L$；
+在最小标准模型中，中微子只以左手征分量进入轻子二重态
+$(\nu_L,e_L)$，故 $\Psi_L$ 在轻子扇区的实例正是 $\nu_L$。
+\end{proof}
+
+\begin{rem}[$q=2$ 回 v8，$q=3$ 给三代味]\label{rem:qcases}
+$p/q = 1/2$ 时定理~\ref{thm:main} 即 v8 的中微子左旋定理。
+$p/q = 1/3$ 时 $\Psi_L$ 自动获得 $\mathbb{Z}_3$ 味结构，
+三代味来自 $0^{1/3}$ 的三分支，见 \S\ref{sec:flavor}。
+\end{rem}
+
+\section{味结构：实部分支}\label{sec:flavor}
+
+\begin{rem}[味从 $a$ 的分支结构来]\label{rem:flavor}
+$z$ 的实部 $a = p/q$ 给出 $q$ 分支结构，经 $F^{p/q}$ 映为 $\Psi_L$
+的 $\mathbb{Z}_q$ 味结构：
+\[
+\Psi_L = \bigoplus_{k=0}^{q-1} \Psi_L^{(k)}.
+\]
+味本征态不是分支的不动点，而是 $\mathbb{Z}_q$ 分支置换的本征态。
+$q=3$ 给出三代味。
+\end{rem}
+
+\begin{rem}[味结构是函子像的内蕴属性]\label{rem:flavorfrom}
+$\Psi_L$ 的 $\mathbb{Z}_q$ 味结构不是外加输入，
+它是 $F^{p/q}$ 从 $M^{p/q}$ 的 $q$ 分支结构直接传输的像。
+$\Cat{Pu}_{p/q}$ 的每个分支 $\leftrightarrow$ $\Psi_L$ 的每个味分量。
+\end{rem}
+
+\section{振荡与 CP：虚部相位}\label{sec:osc}
+
+\begin{rem}[振荡：$b$ 的相位结构]\label{rem:osc}
+$z = a+ib$ 的虚部 $b$ 经 $F^z$ 映为相位因子
+\[
+e^{-ib\infty},
+\]
+在 $\Cat{Ferm}$ 中表现为 $\Psi_L$ 的复相位。
+在味基下，振荡态射具有形式
+\[
+\mathrm{osc}: \Psi_L^{(k)} \longmapsto \sum_{l=0}^{q-1}
+U_{kl}\, e^{i\theta_l}\,\Psi_L^{(l)},
+\]
+其中 $U_{kl}$ 的\textbf{结构来源}是 $\mathbb{Z}_q$ 分支置换，
+$e^{i\theta_l}$ 是分支 $l$ 的相位累积（$b$ 的像）。
+
+\textbf{嵌入说明。} $\mathbb{Z}_q$ 的正则表示是 $q\times q$
+循环置换矩阵，它是 $\mathrm{U}(q)$ 的离散子群，不包含连续的混合角。
+从 $\mathbb{Z}_q$ 分支置换到物理上 $SU(q)$ 混合矩阵
+（$q=3$ 时为 PMNS 的 $3\times 3$ 幺正矩阵）的精确嵌入
+\textbf{留待延拓}（见 \S\ref{sec:extension}）；当前版本只给出
+$U_{kl}$ 的结构来源是分支置换，不声称已给出 $SU(q)$ 的连续参数。
+
+PMNS 混合角与振荡频率的定量对应留待延拓。
+\end{rem}
+
+\begin{rem}[CP 破坏：复指数的非实性]\label{rem:cp}
+CP 变换在源侧对应 $z\mapsto\bar z$（复共轭）。
+$b\neq 0$ 时 $0^z\neq 0^{\bar z}$，即复指数的非实性。
+
+\textbf{函子桥接。} 在靶侧，CP 变换对应 PMNS 矩阵的复共轭
+$U_{PMNS}\mapsto U_{PMNS}^*$。$b\neq 0$ 时
+$F^z\neq F^{\bar z}$，故经函子传输后
+$U_{PMNS}$ 不能被实正交矩阵吸收——
+其复相位不可消除，即 CP 破坏。
+
+$q\geq 3$ 时 $\mathbb{Z}_q$ 的复特征 $\omega^k$ 与 $\omega^{-k}$ 不等，
+与 CP 破坏相位不可消除一致。
+$q = 2$ 时 $\mathbb{Z}_2$ 自共轭，$U_{PMNS}$ 可被实正交矩阵吸收，
+无 CP 破坏。定量形式（PMNS 相位角的精确值）留待延拓。
+\end{rem}
+
+\begin{rem}[$q\geq 3$ 与 CP 破坏的物理一致性]\label{rem:km}
+物理上 CP 破坏在标准模型中要求至少三代（Kobayashi-Maskawa）。
+本框架中 $q\geq 3$ 时 $\mathbb{Z}_q$ 分支结构非自共轭，
+与物理条件结构性一致。
+\end{rem}
+
+\section{延拓接口}\label{sec:extension}
+
+\begin{rem}[当前版本的三层边界]\label{rem:boundary}
+本版本（v11）在以下意义上完成：
+\begin{enumerate}
+\item \textbf{已证}（$z\in\mathbb{R}$）：实情形全部定理逐字成立
+（\S\ref{sec:flavor} 之前的全部内容，以及定理~\ref{thm:main}）。
+\item \textbf{结构已定}（$z\in\mathbb{C}$，$b\neq 0$）：
+$0^z = 0^a\cdot 0^{ib}$ 给出实部/虚部两层结构；
+实部给分支（味），虚部给相位（振荡），
+经函子 $F^z$ 分别映为 $\Psi_L$ 的味结构与相位结构。
+\item \textbf{接口开放}（定量细节）：
+  \begin{itemize}
+  \item \textbf{$\mathbb{Z}_q$ 到 $SU(q)$ 的嵌入}：
+  从分支置换到 PMNS 连续混合矩阵的精确嵌入方式
+  （$q=3$ 时给出三个混合角与一个 CP 相位）；
+  \item $b$ 的物理尺度：振荡频率 $\theta_l$ 与质量平方差
+  $\Delta m^2$、基线 $L$、能量 $E$ 的定量对应；
+  \item $a$ 的有理逼近规则：分支数 $q$ 如何在 $a$ 连续时涌现；
+  \item $\infty$ 在指数映射下的周期结构：$e^{-ib\infty}$ 的
+  $2\pi$ 周期性从公理 III 如何精确导出。
+  \end{itemize}
+\end{enumerate}
+这些不是 v11 的缺失，而是卟学框架作为可延拓体系的设计：
+当前版本给出结构和已证部分，细节由后续延拓按物理对接补全。
+\end{rem}
+
+\begin{rem}[方法论说明]\label{rem:method}
+本版本延续 v8 的处理方式：明确标注哪些是已证的、哪些是约定的、
+哪些是留给延拓的。v8 标注了“$T_3$ 对应是约定”；
+v11 在此基础上标注“$b$ 的尺度是接口”与“$\mathbb{Z}_q\to SU(q)$
+嵌入是接口”。
+这一姿态与卟学“自然本无禁区”的框架一致：
+不因为存在开放接口而拒绝框架，也不把未证明的东西当作已证明。
+\end{rem}
+
+\section{结论}
+
+\begin{enumerate}
+\item 三代味从 $0^{1/3}$ 的实分支来（$a = 1/3$）。
+\item 中微子左旋从 $0^{p/q}$ 每分支的内部同一性（公理 I：点胚内
+$0=1$）来（实情形，定理~\ref{thm:main}）。
+\item 振荡与 CP 从 $0^z$ 的复结构来（$b\neq 0$），
+经函子 $F^z$ 映为 $\Psi_L$ 的相位结构；定量细节留待延拓。
+\item 全部结构来自 $0^z = e^{z\ln 0}$ 的经典延拓。
+\item 实情形封闭（v8 全部定理逐字继承），
+复情形接口开放（\S\ref{sec:extension}），
+与卟学“自然本无禁区”的框架一致。
+\end{enumerate}
+
+\appendix
+\section{附录：态射与对象的转化}
+
+在范畴论中，态射 $f: A\to B$ 可以通过以下方式转化为对象：
+\begin{enumerate}
+\item \textbf{箭头范畴} $\mathrm{Arr}(\mathcal{C})$：其对象为
+$\mathcal{C}$ 中的态射 $f: A\to B$，态射为交换正方形。
+在 $\mathrm{Arr}(\Cat{Pu}_z)$ 中，$t^z$ 本身是一个对象。
+\item \textbf{像对象}：$\mathrm{im}(t^z) = M^z$ 作为 $\Cat{Pu}_z$ 中的对象。
+\item \textbf{切片范畴} $\mathcal{C}/M^z$：对象为所有以 $M^z$ 为靶的态射。
+\end{enumerate}
+
+函子 $F^z$ 在 $\Cat{Pu}_z$ 中作为普通函子定义；
+$F^z$ 诱导函子 $\mathrm{Arr}(F^z): \mathrm{Arr}(\Cat{Pu}_z)
+\to \mathrm{Arr}(\Cat{Ferm})$，将对象 $t^z$ 映为对象 $w$。
+
+\section{附录：v8 到 v11 的对应表}
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+\textbf{结构} & \textbf{v8} & \textbf{v11} \\
+\hline
+点胚 & $\vartheta = (0,1)$ & $0^z$，$z\in\mathbb{C}$ \\
+源范畴 & $\Cat{Pu}$（$q=2$） & $\Cat{Pu}_z$（$q$ 由 $a$ 决定） \\
+生成态射 & $t: D\to M$ & $t^z: D^z\to M^z$ \\
+靶范畴 & $\Cat{Ferm}$ & $\Cat{Ferm}$（不变） \\
+函子 & $F$ & $F^z$ \\
+味结构 & （无） & $\Psi_L = \bigoplus_{k=0}^{q-1}\Psi_L^{(k)}$ \\
+相位结构 & （无） & $e^{-ib\infty}$ \\
+手性定理 & 定理 6.1 & 定理~\ref{thm:main}（实情形） \\
+\hline
+\end{tabular}
+\end{center}
+
+$z = 1/2$（$b=0$）时 v11 与 v8 完全一致。
+
+\end{document}
